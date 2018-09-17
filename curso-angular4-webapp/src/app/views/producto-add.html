@@ -1,0 +1,35 @@
+<br>
+<h3>{{titulo}}</h3>
+<hr>
+
+<form #formProducto="ngForm" (ngSubmit)="onSubmit()" class="col-lg-5" id="form-productos">
+
+    <strong><label>
+        Nombre
+        <span *ngIf="!nombre.valid && nombre.touched" class="border rounded border-danger text-danger">El nombre es obligatorio</span>
+    </label></strong>
+    <input type = "text" #nombre="ngModel" name="nombre" [(ngModel)]="producto.nombre" class="form-control" required [ngStyle]="{'border-color': producto.nombre == '' && nombre.touched ? 'red': '#ccc'}"/>
+
+
+    <strong><label>
+        Descripcion
+        <span *ngIf="!descripcion.valid && descripcion.touched" class="border rounded border-danger text-danger">La descripción es obligatorio</span>
+    </label></strong>
+    <textarea #descripcion="ngModel" name="descripcion" [(ngModel)]="producto.descripcion" class="form-control" required [ngStyle]="{'border-color': producto.descripcion == '' && descripcion.touched ? 'red': '#ccc'}"></textarea>
+
+    <strong><label>
+        Precio
+        <span *ngIf="!precio.valid && precio.touched" class="border rounded border-danger text-danger">El precio no es correcto</span>
+    </label></strong>
+    <input type = "number" #precio="ngModel" name="precio" [(ngModel)]="producto.precio" class="form-control" required pattern="[0-9]+"/>
+
+    <strong><label>Imagen</label></strong>
+    <input type = "file" class="form-control" (change)="fileChangeEvent($event)"/>
+    <div *ngIf="is_edit">
+        <img src="http://localhost/curso-angular4-backend/uploads/{{producto.imagen}}" width="200"/>
+    </div>
+
+    <br>
+    <input type="submit" value="{{titulo}}" [disabled]="!formProducto.form.valid" class="btn btn-outline-success" id="btn-crear-producto">
+
+</form>
